@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+
+
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scal	e=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+
+        <title>Administrador</title>
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources//AdminLTE.min.css" />
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources//skin-blue.min.css" />
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources//bootstrap.min.css" />
+
+        <script src="#{facesContext.externalContext.requestContextPath}/resources//jquery.min.js"></script>
+        <script src="#{facesContext.externalContext.requestContextPath}/resources//adminlte.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   </h:head>
+
+
+
+    <h:body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a class="logo" href="#">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><img src="./logo.png" /></span>
+
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><img src="./logo.png" height="50%" width="35%"/></span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button -->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only"></span>
+                        <span class="glyphicon glyphicon-tasks"></span>
+                    </a>
+                    <a href="#" class="logout" role="button" title="Salir del sistema">
+                        <span class=""></span>
+                    </a>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header text-center">Menu</li>
+
+                        <li class="treeview">
+                            <a href="#"><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
+                                <span class="glyphicon glyphicon-chevron-down">
+                                    <i class=""></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#" >Lista de Usuarios</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#"><i class="glyphicon glyphicon-tags"></i> <span>Rol</span>
+                                <span class="glyphicon glyphicon-chevron-down">
+                                    <i class=""></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#">Lista de Roles</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#"><i class="glyphicon glyphicon-tags"></i> <span>Proyecto</span>
+                                <span class="glyphicon glyphicon-chevron-down">
+                                    <i class=""></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#">Lista de Proyectos</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <!-- Main content -->
+
+                <section class="content container-fluid">
+                    <!-----------------------
+                    | Your Page Content Here |
+                    -------------------------->
+                    <div >
+                        <div class="content container-fluid">
+                            <ui:insert name="body" >
+                                    </ui:insert></li>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <div>
+                    <span>footer</span>
+                </div>
+            </footer>
+            <!-- /.control-sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+
+   </h:body>
+</html>
