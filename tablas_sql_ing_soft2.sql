@@ -38,7 +38,7 @@ CREATE TABLE a_kanban (
 LOGGING;
 
 COMMENT ON COLUMN a_kanban.id_kanban IS
-    'Una vez iniciado un Sprint el usuario deberÃ­a visualizar una interfaz con un
+    'Una vez iniciado un Sprint el usuario debera visualizar una interfaz con un
 tablero Kanban, con tres paneles: 
 1: To-Do,
 2:Doing,
@@ -58,7 +58,7 @@ CREATE TABLE a_modulo (
 LOGGING;
 
 COMMENT ON COLUMN a_modulo.id_modulo IS
-    'A_modulo gestiona el nombre y descripciÃ³n de los mÃ³dulos del sistema
+    'A_modulo gestiona el nombre y descripcion de los modulos del sistema
 Ejemplo:
 Proyecto
 Backloog
@@ -78,21 +78,21 @@ CREATE TABLE a_permiso (
 LOGGING;
 
 COMMENT ON COLUMN a_permiso.id_permiso IS
-    'A_AutorizaciÃ³n administra en en base a cada mÃ³dulo los permisos de
-01: creaciÃ³n,
-02: modificaciÃ³n,
-03: visualizaciÃ³n.
+    'A_Autorizacion administra en en base a cada modulo los permisos de
+01: creacion,
+02: modificacion,
+03: visualizacion.
 
 Ejemplo: 
 Modulo proyecto permiso de lectura
-id autorizaciÃ³n: 1 
+id autorizacion: 1 
 id_modulo: 1 (Proyecto)
-tipo_autorizaciÃ³n: 1 (Lectura).
+tipo_autorizacion: 1 (Lectura).
 
-Modulo proyecto permiso de modificaciÃ³n o escritura
+Modulo proyecto permiso de modificacion o escritura
 id_autorizacion: 2
 id_modulo: 1(Proyecto)
-tipo:autorizaciÃ³n:2 (ModificaciÃ³n).
+tipo:autorizacion:2 (Modificacion).
 
 id autorizacion 	id_modulo tipo_autorizacion
 1		 1		1
@@ -100,9 +100,9 @@ id autorizacion 	id_modulo tipo_autorizacion
 ';
 
 COMMENT ON COLUMN a_permiso.tipo_permiso IS
-    'permiso de creaciÃ³n             - 01
+    'permiso de creacion             - 01
 permiso de modificacion        -02
-permiso de visualizaciÃ³n        -03';
+permiso de visualizacion        -03';
 
 COMMENT ON COLUMN a_permiso.observacion IS
     '1 Creacion
@@ -125,8 +125,8 @@ CREATE TABLE a_proyecto (
 LOGGING;
 
 COMMENT ON COLUMN a_proyecto.id_proyecto IS
-    'A_Proyecto administra la informaciÃ³n de los datos de proyecto
-Por especificaciÃ³n del proyecto 
+    'A_Proyecto administra la informacion de los datos de proyecto
+Por especificacion del proyecto 
 No puede existir un proyecto sin un backlog ni un backlog sin proyecto.
 Primero se crea el backloog y luego el proyecto
 
@@ -162,7 +162,7 @@ id_autorizacion: 1
 id_rol: 1
 id_autorizacion: 2
 
-id_rol 	id_autorizaciÃ³n
+id_rol 	id_autorizacion
 1		 1	
 1		 2
 1		 3
@@ -170,18 +170,18 @@ id_rol 	id_autorizaciÃ³n
 ';
 
 COMMENT ON COLUMN a_rol.id_permiso IS
-    'Dato referenciado a la tabla A_AutorizaciÃ³n
+    'Dato referenciado a la tabla A_Autorizacion
 En base a cada id_rol se van asignando los permisos/autorizacione
 Ejemplo
 Id_rol: 01 (Scrum Master)
 Id_autorizacion:  1
 Es decir Modulo: Proyecto
-	Tipo_AutorizaciÃ³n:Escritura
+	Tipo_Autorizacion:Escritura
 
  Id_rol: 01
  Id_autorizacion: 2
  Es decir Modulo: Sprint 
- 	Tipo de autorizaciÃ³n: Lectura
+ 	Tipo de autorizacion: Lectura
 
  Finalmente el id_rol : 1 
  se compone de
@@ -273,13 +273,15 @@ CREATE TABLE a_usuario (
     id_usuario INTEGER NOT NULL,
     nombre     VARCHAR2(20),
     apellido   VARCHAR2(200),
+	username   VARCHAR2(30),
+	contrasena VARCHAR2(30),
     email      VARCHAR2(50),
     telefono   VARCHAR2(30)
 )
 LOGGING;
 
 COMMENT ON COLUMN a_usuario.id_usuario IS
-    'A_usuario maneja los datos bÃ¡sicos de los usuarios del sistema
+    'A_usuario maneja los datos basicos de los usuarios del sistema
 ';
 
 ALTER TABLE a_usuario ADD CONSTRAINT usuario_pk PRIMARY KEY ( id_usuario );

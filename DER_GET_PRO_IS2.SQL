@@ -85,14 +85,14 @@ COMMENT ON COLUMN a_permiso.id_permiso IS
 
 Ejemplo: 
 Modulo proyecto permiso de lectura
-id autorizaciÃ³n: 1 
+id autorizacion: 1 
 id_modulo: 1 (Proyecto)
-tipo_autorizaciÃ³n: 1 (Lectura).
+tipo_autorizacion: 1 (Lectura).
 
-Modulo proyecto permiso de modificaciÃ³n o escritura
+Modulo proyecto permiso de modificacion o escritura
 id_autorizacion: 2
 id_modulo: 1(Proyecto)
-tipo:autorizaciÃ³n:2 (ModificaciÃ³n).
+tipo:autorizacion:2 (Modificacion).
 
 id autorizacion 	id_modulo tipo_autorizacion
 1		 1		1
@@ -100,7 +100,7 @@ id autorizacion 	id_modulo tipo_autorizacion
 ';
 
 COMMENT ON COLUMN a_permiso.tipo_permiso IS
-    'permiso de creaciÃ³n             - 01
+    'permiso de creacion             - 01
 permiso de modificacion        -02
 permiso de visualizaciÃ³n        -03';
 
@@ -125,7 +125,7 @@ CREATE TABLE a_proyecto (
 LOGGING;
 
 COMMENT ON COLUMN a_proyecto.id_proyecto IS
-    'A_Proyecto administra la informaciÃ³n de los datos de proyecto
+    'A_Proyecto administra la informacion de los datos de proyecto
 Por especificaciÃ³n del proyecto 
 No puede existir un proyecto sin un backlog ni un backlog sin proyecto.
 Primero se crea el backloog y luego el proyecto
@@ -170,7 +170,7 @@ id_rol 	id_autorizaciÃ³n
 ';
 
 COMMENT ON COLUMN a_rol.id_permiso IS
-    'Dato referenciado a la tabla A_AutorizaciÃ³n
+    'Dato referenciado a la tabla A_Autorizacion
 En base a cada id_rol se van asignando los permisos/autorizacione
 Ejemplo
 Id_rol: 01 (Scrum Master)
