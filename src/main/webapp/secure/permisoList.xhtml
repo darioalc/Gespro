@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form>
+                    <h4>Permisos</h4>
+                    <p:separator style="color: #ffffff"/>
+                    <p class="text-primary">Lista de Permisos</p>
+                    <p:dataTable value="#{permisoView.permisoes}" var="permiso"
+                                 rows="5" editable="true" 
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="No hay registros"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Accion">
+                            <div align="center" >
+                                <p:commandButton class="btn btn-default"  
+                                                 onclick="$('#myModal').modal('show');" 
+                                                 immediate="true"
+                                                 icon="ui-icon-zoomin" 
+                                                 title="Ver detalle"  >
+                                </p:commandButton>
+                                <p:commandButton class="btn btn-default"  
+                                                 onclick="$('#myModal').modal('show');" 
+                                                 immediate="true"
+                                                 icon="ui-icon-pencil" 
+                                                 title="Editar"  >
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+                        <p:column headerText="Rol">
+                            <h:outputText value="#{permiso.idPermiso}"/>
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{permiso.tipoPermiso}"/>
+                        </p:column>
+
+                        <p:column headerText="Modulo">
+                            <h:outputText value="#{permiso.AModuloIdModulo.nombreModulo}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                    <p:commandButton class="btn btn-primary"   
+                                     onclick="$('#myModal').modal('show');" 
+                                     immediate="true"
+                                     value="Agregar permisos">
+                    </p:commandButton>
+                </h:form>
+
+                <div id="myModal" class="modal fade" permisose="dialog" >
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h4 class="modal-title">Registro de permisos</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h:form>
+                                    <h5  value="Datos Generales">Datos Generales</h5>
+                                    <p:separator/>
+                                    <fieldset style="background: #ffffff" >
+                                        <br></br>
+                                        <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                                            <p:outputLabel  value="Nombre : " />
+                                            <p:inputText id="permisos"  disabled="true"
+                                                         value="Permisos Completos "  />
+                                             <p:outputLabel  value="Modulo : " />
+                                            <h:selectOneMenu styleClass="form-control"  id="console" style="width:180px;margin-top:  30px">
+                                                <f:selectItem itemLabel="--Seleccionar--" itemValue="#{permisoView.moduloSelected}" />
+                                                <f:selectItems itemLabel="#{modulo.nombreModulo}" var="modulo" value="#{permisoView.modulos}"/>
+                                            </h:selectOneMenu>
+                                            <br></br>
+                                        </p:panelGrid>
+                                        <br></br><br></br>
+                                        <br></br>
+                                    </fieldset>
+                                </h:form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div align="center" >
+                                    <h:panelGrid columns="2" >
+                                        <div align="center">
+                                            <h:panelGrid columns="2" >
+                                                <p:commandButton  class="btn btn-primary"  value="Guardar" action="#{permisoView.save()}" >
+                                                </p:commandButton>
+                                            </h:panelGrid>
+                                        </div>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

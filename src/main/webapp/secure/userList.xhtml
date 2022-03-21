@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Usuarios</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form>
+                    <h3>Usuarios</h3>
+                    <p:separator style="color: #ffffff"/>
+                    <p class="text-primary">Lista de Usuarios</p>
+                    <p:dataTable value="#{userView.users}" var="user"
+                                 rows="5" 
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="No hay registros"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 >
+                        <p:column  headerText="Acción" >
+                            <div align="center" >
+
+                                <p:commandButton class="btn btn-default"  
+                                                 onclick="$('#myModal').modal('show');" 
+                                                 immediate="true"
+                                                 icon="ui-icon-zoomin" 
+                                                 title="Ver detalle"  >
+                                </p:commandButton>
+                                <p:commandButton class="btn btn-default"  
+                                                 onclick="$('#myModal').modal('show');" 
+                                                 immediate="true"
+                                                 icon="ui-icon-pencil" 
+                                                 title="Editar"  >
+                                </p:commandButton>
+                                <p:commandButton class="btn btn-default" 
+                                                 icon=" ui-icon-clipboard" 
+                                                 title="Ver proyectos asignados"  >
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="Nombre">
+                            <div align="center" >
+                                <h:outputText value="#{user.nombre}" />
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="Apellido">
+                            <div align="center" >
+                                <h:outputText value="#{user.apellido}" />
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="Fecha Alta">
+                            <div align="center" >
+                                <h:outputText value="#{user.fechaAlta}" />
+                            </div>
+                        </p:column>
+
+
+                        <p:column headerText="Estado">
+                            <div align="center" >
+                                <p:commandButton 
+                                    rendered="#{user.estado}" 
+                                    class="btn btn-success"  
+                                    value="Activo" >
+                                </p:commandButton>
+                                <p:commandButton rendered="#{!user.estado}" 
+                                                 class="btn btn-danger"  
+                                                 value="Inactivo"  >
+                                </p:commandButton>
+                            </div>
+
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <br></br>
+                    <p:commandButton class="btn btn-primary"   
+                                     onclick="$('#myModal').modal('show');" 
+                                     immediate="true"
+                                     value="Agregar usuario">
+                    </p:commandButton>
+
+                </h:form>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog" >
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h4 class="modal-title">Registro de usuario</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h:form>
+                                    <h5  value="Datos Personales">Datos Personales</h5>
+                                    <p:separator/>
+                                    <fieldset style="background: #ffffff" >
+                                        <br></br>
+
+                                        <p:panelGrid columns="4"  styleClass="ui-noborder ui-panelGrid-black">
+                                            <p:outputLabel value="Nombre : " />
+                                            <p:inputText id="nombre"
+                                                         />
+
+                                            <p:outputLabel  value="Apellido :" />
+                                            <p:inputText id="apellido" 
+                                                         /> 
+                                        </p:panelGrid>
+                                        <br></br>
+                                    </fieldset>
+                                    <br></br>
+                                    <h5 value="Datos de Usuario">Datos de Usuario</h5>
+                                    <p:separator/>
+                                    <fieldset style="background: #ffffff" >
+                                        <br></br>
+                                        <p:panelGrid columns="4" styleClass="ui-noborder ui-panelGrid-black">
+                                            <p:outputLabel value="Usuario: " />
+                                            <p:inputText id="usuario" 
+                                                         />
+
+                                            <p:outputLabel value="Contraseña:" />
+                                            <p:password id="contraseña" 
+                                                        /> 
+
+                                            <p:outputLabel value="Correo:" />
+                                            <p:password id="correo" 
+                                                        /> 
+
+
+                                            <p:outputLabel  for="console" value="Rol :" />
+                                            <h:selectOneMenu styleClass="form-control"  id="console" style="width:180px">
+                                                <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                                <f:selectItem itemLabel="Scrum Master" itemValue="Scrum Master" />
+                                                <f:selectItem itemLabel="Product Owner" itemValue="Product Owner" />
+                                                <f:selectItem itemLabel="Developer" itemValue="Developer" />
+                                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                            </h:selectOneMenu>
+                                        </p:panelGrid>
+                                        <br></br><br></br>
+                                    </fieldset>
+                                </h:form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div align="center" >
+                                    <h:panelGrid columns="2" >
+                                        <h:commandButton  class="btn btn-primary" value="Guardar"  >
+                                        </h:commandButton>
+                                        <button type="button" style="margin-left: 1px"  class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

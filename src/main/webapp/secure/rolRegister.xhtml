@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form>
+                    <h4  value="Datos Generales">Datos Generales</h4>
+                    <p:separator/>
+                    <fieldset style="background: #ffffff" >
+                        <br></br>
+                        <p:panelGrid columns="3"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel  value="Nombre : " />
+                            <p:inputText id="rol" 
+                                         value="#{rolView.rol.rol}"  />
+                            <br></br>
+                            <p:outputLabel  value="Descripción :" />
+                            <p:inputText id="desc" 
+                                         value="#{rolView.rol.descripcion}"  /> 
+                            <br></br>
+                            <p:outputLabel for="estado" value="Estado :" />
+                            <h:selectOneMenu styleClass="form-control"  id="estado" style="width:180px">
+                                <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                <f:selectItem itemLabel="Activo" itemValue="#{true}" />
+                                <f:selectItem itemLabel="Inactivo" itemValue="#{false}"/>
+                            </h:selectOneMenu>
+                            <br></br>
+                        </p:panelGrid>
+                        <br></br><br></br>
+                        <div align="center">
+                            <h:panelGrid columns="2" >
+                                    <p:commandButton  class="btn btn-primary"  value="Guardar"  >
+                                    </p:commandButton>
+                                <p:commandButton  class="btn btn-primary"  value="Cancelar" action="#{rolView.cancelar()}" >
+                                    </p:commandButton>
+                            </h:panelGrid>
+
+                        </div>
+                        <br></br>
+                    </fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

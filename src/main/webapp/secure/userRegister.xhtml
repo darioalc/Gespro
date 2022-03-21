@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Usuarios</title>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form>
+                    <h4  value="Datos Personales">Datos Personales</h4>
+                    <p:separator/>
+                    <fieldset style="background: #ffffff" >
+                        <br></br>
+
+                        <p:panelGrid columns="6"  styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel value="Nombre : " />
+                            <p:inputText id="nombre"  value="#{userView.usuario.nombre}"
+                                         />
+
+                            <p:outputLabel style="margin-left:  100px" value="Apellido :" />
+                            <p:inputText id="apellido" value="#{userView.usuario.apellido}"
+                                         /> 
+                            
+                              <p:outputLabel value="Email : " />
+                              <p:inputText id="nombre"  value="#{userView.usuario.email}"
+                                         />
+
+                            <p:outputLabel style="margin-left:  100px" value="Telefono :" />
+                            <p:inputText id="apellido" value="#{userView.usuario.telefono}"
+                                         /> 
+                        </p:panelGrid>
+                        <br></br>
+                    </fieldset>
+
+                    <h4 value="Datos de Usuario">Datos de Usuario</h4>
+                    <p:separator/>
+                    <fieldset style="background: #ffffff" >
+                        <br></br>
+                        <p:panelGrid columns="6" styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel value="Usuario: " />
+                            <p:inputText id="usuario" value="#{userView.usuario.usuario}"
+                                         />
+
+                            <p:outputLabel  style="margin-left:  50px" value="Contraseña:" />
+                            <p:password id="contraseña"  value="#{userView.usuario.pass}"
+                                        /> 
+
+                            <p:outputLabel  style="margin-left:  100px" value="Correo:" />
+                            <p:password id="correo" 
+                                        /> 
+
+                            <p:outputLabel style="margin-top:  30px"  for="console" value="Rol :" />
+                            <h:selectOneMenu styleClass="form-control"  id="console" style="width:180px;margin-top:  30px">
+                                <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                <f:selectItems value="#{userView.rols}"/>
+                            </h:selectOneMenu>
+
+                        </p:panelGrid>
+                        <br></br><br></br>
+                        <div align="center">
+                            <h:panelGrid columns="2" >
+                                <p:commandButton class="btn btn-primary" value="Guardar" action="#{userView.save()}" >
+                                </p:commandButton>
+                                <h:commandButton class="btn btn-primary" value="Cancelar" action="userList.xhtml"  >
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                        <br></br><br></br>
+                    </fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
