@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author DarioA
+ * @author vgomez
  */
 public class ProyectoManager extends AbstractJpaDao<Proyecto>{
       public List<Proyecto> getAll() {
