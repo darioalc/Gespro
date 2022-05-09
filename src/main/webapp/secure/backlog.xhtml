@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Permisos</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form id="from1">
+                    <h3>Permisos</h3>
+                    <p:separator style="color: #ffffff"/>
+                    <p class="text-primary">Lista de Permisos</p>
+                    <p:dataTable value="#{backlogView.list}" var="backlog"
+                                 rows="5" editable="true" 
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="No hay registros"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Accion">
+                            <div align="center" >
+                                <p:commandButton class="btn btn-default"  
+                                                 oncomplete="$('#myModal').modal('show');" 
+                                                 immediate="true"
+                                                 action="#{backlogView.edit()}"
+                                                 icon="ui-icon-pencil" 
+                                                 title="Editar"  >
+                                    <f:setPropertyActionListener value="#{backlog}" target="#{backlogView.backlog}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                                <p:commandButton class="btn btn-default"  
+                                                 action="#{backlogView.delete()}"
+                                                 icon="ui-icon-trash" 
+                                                 title="Eliminar"  >
+                                    <f:setPropertyActionListener value="#{backlog}" target="#{backlogView.backlog}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+                        <p:column headerText="# ">
+                            <h:outputText value="#{backlog.idBackloog}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{backlog.enunciado}"/>
+                        </p:column>
+                        <p:column headerText="Prioridad">
+                            <h:outputText value="#{backlog.prioridad}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                    <p:commandButton class="btn btn-primary"   
+                                     action="#{backlogView.clear()}"
+                                     oncomplete="$('#myModal').modal('show');" 
+                                     immediate="true"
+                                     value="Agregar backlog">
+                    </p:commandButton>
+</h:form>
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog" >
+                        <div class="modal-dialog">
+                            <h:form id="from2">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"></button>
+                                        <h4 class="modal-title">Registro de backlogs</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div  class="modal-footer">
+                                            <div align="center" >
+                                                <h:panelGrid   columns="2" >
+                                                    <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                                      action="#{backlogView.save()}"  >
+                                                    </h:commandButton>
+                                                </h:panelGrid>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
