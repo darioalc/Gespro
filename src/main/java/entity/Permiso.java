@@ -20,19 +20,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_permiso")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Permiso.findAll", query = "SELECT p FROM Permiso p"),
-    @NamedQuery(name = "Permiso.findByIdPermiso", query = "SELECT p FROM Permiso p WHERE p.idPermiso = :idPermiso"),
-    @NamedQuery(name = "Permiso.findByIdModulo", query = "SELECT p FROM Permiso p WHERE p.idModulo = :idModulo"),
-    @NamedQuery(name = "Permiso.findByTipoPermiso", query = "SELECT p FROM Permiso p WHERE p.tipoPermiso = :tipoPermiso"),
-    @NamedQuery(name = "Permiso.findByObservacion", query = "SELECT p FROM Permiso p WHERE p.observacion = :observacion")})
+    @NamedQuery(name = "Permiso.findAll", query = "SELECT p FROM Permiso p")
+    , @NamedQuery(name = "Permiso.findByIdPermiso", query = "SELECT p FROM Permiso p WHERE p.idPermiso = :idPermiso")
+    , @NamedQuery(name = "Permiso.findByIdModulo", query = "SELECT p FROM Permiso p WHERE p.idModulo = :idModulo")
+    , @NamedQuery(name = "Permiso.findByTipoPermiso", query = "SELECT p FROM Permiso p WHERE p.tipoPermiso = :tipoPermiso")
+    , @NamedQuery(name = "Permiso.findByObservacion", query = "SELECT p FROM Permiso p WHERE p.observacion = :observacion")})
 public class Permiso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,6 +104,7 @@ public class Permiso implements Serializable {
         this.observacion = observacion;
     }
 
+    @XmlTransient
     public List<Rol> getRolList() {
         return rolList;
     }

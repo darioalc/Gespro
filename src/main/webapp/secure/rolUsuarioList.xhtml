@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       >
     <h:head>
-        <title>Permisos</title>
+        <title>Asignacion de Roles</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -22,10 +22,10 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/template/template.xhtml">
             <ui:define  name="body" >
                 <h:form id="from1">
-                    <h3>Rol</h3>
+                    <h3>Roles y Usuarios</h3>
                     <p:separator style="color: #ffffff"/>
                     <p class="text-primary">Lista de Roles</p>
-                    <p:dataTable value="#{rolView.roles}" var="rol"
+                    <p:dataTable value="#{rolUsuarioView.rolUsuarioList}" var="rolUsuario"
                                  rows="5" editable="true" 
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -37,35 +37,35 @@ and open the template in the editor.
                                 <p:commandButton class="btn btn-default"  
                                                  oncomplete="$('#myModal').modal('show');" 
                                                  immediate="true"
-                                                 action="#{rolView.edit()}"
+                                                 action="#{rolUsuarioView.edit()}"
                                                  icon="ui-icon-pencil" 
                                                  title="Editar"  >
-                                    <f:setPropertyActionListener value="#{rol}" target="#{rolView.rol}" ></f:setPropertyActionListener >
+                                    <f:setPropertyActionListener value="#{rolUsuario}" target="#{rolUsuarioView.rolUsuario}" ></f:setPropertyActionListener >
                                 </p:commandButton>
                                 <p:commandButton class="btn btn-default"  
-                                                 action="#{rolView.delete()}"
+                                                 action="#{rolUsuarioView.delete()}"
                                                  icon="ui-icon-trash" 
                                                  title="Eliminar"  >
-                                    <f:setPropertyActionListener value="#{rol}" target="#{rolView.rol}" ></f:setPropertyActionListener >
+                                    <f:setPropertyActionListener value="#{rolUsuario}" target="#{rolUsuarioView.rolUsuario}" ></f:setPropertyActionListener >
                                 </p:commandButton>
                             </div>
                         </p:column>
                         <p:column headerText="# ">
-                            <h:outputText value="#{rol.idRol}"/>
+                            <h:outputText value="#{rolUsuario.id}"/>
                         </p:column>
-                        <p:column headerText="Rol/Permiso">
-                            <h:outputText value="#{(rol.APermisoIdPermiso.tipoPermiso==1? 'Carga' : rol.APermisoIdPermiso.tipoPermiso==2 ? 'Modificacion' : 'Eliminacion').concat(' / ').concat(rol.nombreRol)}"/>
+                        <p:column headerText="Rol">
+                            <h:outputText value="#{rolUsuario.idRol.nombreRol}"/>
                         </p:column>
-                        <p:column headerText="Modulo">
-                            <h:outputText value="#{rol.APermisoIdPermiso.AModuloIdModulo.nombreModulo}"/>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{rolUsuario.idUsuario.nombre.concat(' ').concat(rolUsuario.idUsuario.apellido)}"/>
                         </p:column>
                     </p:dataTable>
                     <br></br>
                     <p:commandButton class="btn btn-primary"   
-                                     action="#{rolView.clear()}"
+                                     action="#{rolUsuarioView.clear()}"
                                      oncomplete="$('#myModal').modal('show');" 
                                      immediate="true"
-                                     value="Agregar rol">
+                                     value="Agregar">
                     </p:commandButton>
                 </h:form>
                 <!-- Modal -->
@@ -76,19 +76,24 @@ and open the template in the editor.
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"></button>
-                                    <h4 class="modal-title">Registro de rol</h4>
+                                    <h4 class="modal-title">Registro nuevo</h4>
                                 </div>
                                 <div class="modal-body">
                                     <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
-                                        <p:outputLabel  value="Permiso : " />
-                                        <h:selectOneMenu styleClass="form-control"  id="consoleeee" value="#{rolView.permisoSelected}" >
-                                            <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
-                                            <f:selectItems itemLabel="#{permiso.AModuloIdModulo.nombreModulo.concat(' - ').concat(permiso.tipoPermiso==1 ? 'Carga' : permiso.tipoPermiso==2? 'Modificacion' :'Eliminacion')}"
-                                                           itemValue="#{permiso.idPermiso}" var="permiso"
-                                                           value="#{rolView.permisos}"/>
-                                        </h:selectOneMenu>
                                         <p:outputLabel  value="Rol : " />
-                                        <p:inputText value="#{rolView.rol.nombreRol}"></p:inputText>
+                                        <h:selectOneMenu styleClass="form-control"  id="consoleeee" value="#{rolUsuarioView.rol}" >
+                                            <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                            <f:selectItems itemLabel="#{rol.nombreRol}"
+                                                           itemValue="#{rol.idRol}" var="rol"
+                                                           value="#{rolUsuarioView.roles}"/>
+                                        </h:selectOneMenu>
+                                        <p:outputLabel  value="Usuario : " />
+                                        <h:selectOneMenu styleClass="form-control"  id="usuariorol" value="#{rolUsuarioView.idUsuario}" >
+                                            <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                            <f:selectItems itemLabel="#{usuario.nombre.concat(' ').concat(usuario.apellido)}"
+                                                           itemValue="#{usuario.idUsuario}" var="usuario"
+                                                           value="#{rolUsuarioView.usuarios}"/>
+                                        </h:selectOneMenu>
                                         <br></br>
                                     </p:panelGrid>
 
@@ -96,7 +101,7 @@ and open the template in the editor.
                                         <div align="center" >
                                             <h:panelGrid   columns="2" >
                                                 <h:commandButton  class="btn btn-primary" value="Guardar"
-                                                                  action="#{rolView.save()}"  >
+                                                                  action="#{rolUsuarioView.save()}"  >
                                                 </h:commandButton>
                                             </h:panelGrid>
                                         </div>

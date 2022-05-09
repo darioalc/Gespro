@@ -5,32 +5,30 @@
  */
 package presentacion;
 
+import entity.UsrHisto;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
+import manager.UserStoryManager;
 
 /**
  *
- * @author joha
+ * @author DarioA
  */
 @Model
 @SessionScoped
-public class HomeView  implements Serializable{
-
-    private List<String> images;
-
+public class UserStoryView  implements Serializable{
+    List<UsrHisto> list;
+    UserStoryManager manager;
+    
     @PostConstruct
     public void init() {
-        images = new ArrayList<String>();
-        for (int i = 0; i <= 2; i++) {
-            images.add("nature" + i + ".jpg");
-        }
+        manager= new UserStoryManager();
+        list=manager.getAll(UsrHisto.class);
     }
-
-    public List<String> getImages() {
-        return images;
-    }
+    
+    
+    
 }

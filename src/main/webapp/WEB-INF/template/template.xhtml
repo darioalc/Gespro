@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
-   </h:head>
+    </h:head>
 
 
 
@@ -35,6 +35,8 @@
 
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg"><img src="#{facesContext.externalContext.requestContextPath}/resources/logo.png" height="50%" width="35%"/></span>
+
+
                 </a>
 
                 <!-- Header Navbar -->
@@ -45,9 +47,14 @@
                         <span class=""></span>
                     </a>
                     <a href="#" class="logout" role="button" title="Salir del sistema">
-                        <span class=""></span>
+                        <div align ="left">
+                            <p:commandButton icon="ui-icon-circle-arrow-e" action="#{loginView.logout()}"
+                                             style="margin-left: 1000px; margin-top: 10px" ></p:commandButton>
+                        </div>
                     </a>
                 </nav>
+
+
             </header>
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="main-sidebar">
@@ -60,37 +67,32 @@
                         <li class="header text-center">Menu</li>
 
                         <li class="treeview">
-                            <a href="#"><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
+                            <a href="#"><i class=" ui-icon-gear"></i> <span>Seguridad</span>
                                 <span class="glyphicon glyphicon-chevron-down">
                                     <i class=""></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="userList.xhtml" >Lista de Usuarios</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="treeview">
-                            <a href="#"><i class="glyphicon glyphicon-tags"></i> <span>Rol</span>
-                                <span class="glyphicon glyphicon-chevron-down">
-                                    <i class=""></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="rolList.xhtml">Lista de Roles</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#"><i class="glyphicon glyphicon-tags"></i> <span>Permiso</span>
-                                <span class="glyphicon glyphicon-chevron-down">
-                                    <i class=""></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
                                 <li><a href="permisoList.xhtml">Lista de Permisos</a></li>
+                                <li><a href="rolList.xhtml">Lista de Roles</a></li>
+                                <li><a href="rolUsuarioList.xhtml">Asignacion de roles</a></li>
+
                             </ul>
                         </li>
                         
+                        <li class="treeview">
+                            <a href="#"><i class=" ui-icon-gear"></i> <span>Proyecto</span>
+                                <span class="glyphicon glyphicon-chevron-down">
+                                    <i class=""></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="proyecto.xhtml" >Lista de Proyecto</a></li>
+
+                            </ul>
+                        </li>
+
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -103,11 +105,11 @@
                 <!-- Main content -->
 
                 <section class="content container-fluid">
-                    
+
                     <div >
                         <div class="content container-fluid">
                             <ui:insert name="body" >
-                                    </ui:insert>
+                            </ui:insert>
 
                         </div>
                     </div>
@@ -119,12 +121,12 @@
             <!-- Main Footer -->
             <footer class="main-footer">
                 <div>
-                    <span>footer</span>
+                    <span></span>
                 </div>
             </footer>
             <!-- /.control-sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
 
-   </h:body>
+    </h:body>
 </html>

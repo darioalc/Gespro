@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Asignacion de Roles</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form id="from2">
+                     <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+                    <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                        <p:outputLabel  value="Nombre proyecto : " />
+                        <p:inputText value="#{proyectoView.proyecto.nombreProyecto}" />
+
+                        <p:outputLabel  value="Descripcion proyecto : " />
+                        <p:inputTextarea value="#{proyectoView.proyecto.descripcion}" />
+                        <p:outputLabel  value="Estado : " />
+                        <h:selectOneMenu styleClass="form-control"  id="consoleeee" value="#{proyectoView.estadoId}" >
+                            <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                            <f:selectItems itemLabel="#{rol.descripcion}"
+                                           itemValue="#{rol.idEstado}" var="rol"
+                                           value="#{proyectoView.estados}"/>
+                        </h:selectOneMenu>
+                        <p:outputLabel  value="Fecha inicio : " />
+                        <p:inputText placeholder="yyyy-MM-dd" value="#{proyectoView.proyecto.fechaInicio}">  
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                        </p:inputText>
+
+                        <p:outputLabel  value="Fecha fin : " />
+                        <p:inputText  placeholder="yyyy-MM-dd"  value="#{proyectoView.proyecto.fechaFin}">  
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                        </p:inputText>
+                        <br></br>
+
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="1" >
+                        <p:outputLabel >
+                            Lista de roles/usuario
+                        </p:outputLabel>
+                        <p:dataTable id="eventsDT" var="rolselect" value="#{proyectoView.rolUsuarios}" >
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{rolselect.idUsuario.nombre.concat(' ').concat(rolselect.idUsuario.apellido)}" />
+                            </p:column>
+
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{rolselect.idUsuario.usuario}" />
+                            </p:column>
+
+                            <p:column headerText="Rol">
+                                <h:outputText value="#{rolselect.idRol.nombreRol}" />
+                            </p:column>
+
+                            <p:column headerText="Opcion">
+                                <p:commandButton action="#{proyectoView.aggRol()}"
+                                                 value="Agregar"  >
+                                    <f:setPropertyActionListener value="#{rolselect}" target="#{proyectoView.rol}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <br></br>
+                        <p:outputLabel >
+                            Lista de roles/usuario seleccionados
+                        </p:outputLabel>
+                        <p:dataTable id="eventsDT2" var="rolselect" value="#{proyectoView.rolUsuariosSeleccionados}"  >
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{rolselect.idUsuario.nombre.concat(' ').concat(rolselect.idUsuario.apellido)}" />
+                            </p:column>
+
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{rolselect.idUsuario.usuario}" />
+                            </p:column>
+
+                            <p:column headerText="Rol">
+                                <h:outputText value="#{rolselect.idRol.nombreRol}" />
+                            </p:column>
+
+                            <p:column headerText="Opcion">
+
+                                <p:commandButton action="#{proyectoView.deleteRol()}"
+                                                 value="Eliminar"  >
+                                    <f:setPropertyActionListener value="#{rolselect}" target="#{proyectoView.rol}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panelGrid>
+
+
+                    <div  class="modal-footer">
+                        <div align="center" >
+                            <h:panelGrid   columns="2" >
+                                <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                  action="#{proyectoView.save()}"  >
+                                </h:commandButton>
+                                <h:commandButton  class="btn btn-primary" value="Cancelar"
+                                                  action="proyecto"  >
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

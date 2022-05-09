@@ -23,23 +23,25 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_proyecto")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
-    @NamedQuery(name = "Proyecto.findByIdProyecto", query = "SELECT p FROM Proyecto p WHERE p.idProyecto = :idProyecto"),
-    @NamedQuery(name = "Proyecto.findByIdRolUsuario", query = "SELECT p FROM Proyecto p WHERE p.idRolUsuario = :idRolUsuario"),
-    @NamedQuery(name = "Proyecto.findByNombreProyecto", query = "SELECT p FROM Proyecto p WHERE p.nombreProyecto = :nombreProyecto"),
-    @NamedQuery(name = "Proyecto.findByDescripcion", query = "SELECT p FROM Proyecto p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "Proyecto.findByFechaInicio", query = "SELECT p FROM Proyecto p WHERE p.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "Proyecto.findByFechaFin", query = "SELECT p FROM Proyecto p WHERE p.fechaFin = :fechaFin"),
-    @NamedQuery(name = "Proyecto.findByIdBackloog", query = "SELECT p FROM Proyecto p WHERE p.idBackloog = :idBackloog"),
-    @NamedQuery(name = "Proyecto.findByIdEstado", query = "SELECT p FROM Proyecto p WHERE p.idEstado = :idEstado")})
+    @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
+    , @NamedQuery(name = "Proyecto.findByIdProyecto", query = "SELECT p FROM Proyecto p WHERE p.idProyecto = :idProyecto")
+    , @NamedQuery(name = "Proyecto.findByIdRolUsuario", query = "SELECT p FROM Proyecto p WHERE p.idRolUsuario = :idRolUsuario")
+    , @NamedQuery(name = "Proyecto.findByNombreProyecto", query = "SELECT p FROM Proyecto p WHERE p.nombreProyecto = :nombreProyecto")
+    , @NamedQuery(name = "Proyecto.findByDescripcion", query = "SELECT p FROM Proyecto p WHERE p.descripcion = :descripcion")
+    , @NamedQuery(name = "Proyecto.findByFechaInicio", query = "SELECT p FROM Proyecto p WHERE p.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Proyecto.findByFechaFin", query = "SELECT p FROM Proyecto p WHERE p.fechaFin = :fechaFin")
+    , @NamedQuery(name = "Proyecto.findByIdBackloog", query = "SELECT p FROM Proyecto p WHERE p.idBackloog = :idBackloog")})
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,9 +68,7 @@ public class Proyecto implements Serializable {
     @NotNull
     @Column(name = "id_backloog")
     private int idBackloog;
-    @Column(name = "id_estado")
-    private Integer idEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aProyectoIdProyecto")
+    @OneToMany(mappedBy = "idProyecto")
     private List<RolUsuario> rolUsuarioList;
     @JoinColumn(name = "estados_id_estados", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
@@ -144,14 +144,8 @@ public class Proyecto implements Serializable {
         this.idBackloog = idBackloog;
     }
 
-    public Integer getIdEstado() {
-        return idEstado;
-    }
 
-    public void setIdEstado(Integer idEstado) {
-        this.idEstado = idEstado;
-    }
-
+    @XmlTransient
     public List<RolUsuario> getRolUsuarioList() {
         return rolUsuarioList;
     }
@@ -168,6 +162,7 @@ public class Proyecto implements Serializable {
         this.estadosIdEstados = estadosIdEstados;
     }
 
+    @XmlTransient
     public List<Backloog> getBackloogList() {
         return backloogList;
     }
@@ -181,19 +176,6 @@ public class Proyecto implements Serializable {
         int hash = 0;
         hash += (idProyecto != null ? idProyecto.hashCode() : 0);
         return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proyecto)) {
-            return false;
-        }
-        Proyecto other = (Proyecto) object;
-        if ((this.idProyecto == null && other.idProyecto != null) || (this.idProyecto != null && !this.idProyecto.equals(other.idProyecto))) {
-            return false;
-        }
-        return true;
     }
 
     @Override

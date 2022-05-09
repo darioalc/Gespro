@@ -1,14 +1,16 @@
 package presentacion;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import manager.UsuarioManager;
 
 /**
  *
- * @author AdrianBorja
+ * @author user
  */
 @Model
 @SessionScoped
@@ -17,11 +19,15 @@ public class LoginView implements Serializable {
     private String usuario;
     private String contraseña;
 
-//    @Inject
-//    LoginService loginService;
-//
+    UsuarioManager usuarioManager;
+
+    @PostConstruct
+    public void init() {
+        usuarioManager = new UsuarioManager();
+    }
+
     public String usuarioValido() {
-//        if (loginService.validate(new LoginModelRequest(usuario, contraseña))) {
+//        if (usuarioManager.login(usuario, contraseña)) {
             return "home";
 //        }
 //        return "login";

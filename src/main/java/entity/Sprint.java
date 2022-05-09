@@ -20,22 +20,24 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_sprint")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s"),
-    @NamedQuery(name = "Sprint.findByIdSprint", query = "SELECT s FROM Sprint s WHERE s.idSprint = :idSprint"),
-    @NamedQuery(name = "Sprint.findByNombreSprint", query = "SELECT s FROM Sprint s WHERE s.nombreSprint = :nombreSprint"),
-    @NamedQuery(name = "Sprint.findByDescripcion", query = "SELECT s FROM Sprint s WHERE s.descripcion = :descripcion"),
-    @NamedQuery(name = "Sprint.findByIdHistory", query = "SELECT s FROM Sprint s WHERE s.idHistory = :idHistory"),
-    @NamedQuery(name = "Sprint.findByFechaInicio", query = "SELECT s FROM Sprint s WHERE s.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "Sprint.findByFechiaFin", query = "SELECT s FROM Sprint s WHERE s.fechiaFin = :fechiaFin"),
-    @NamedQuery(name = "Sprint.findByIdEstado", query = "SELECT s FROM Sprint s WHERE s.idEstado = :idEstado")})
+    @NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s")
+    , @NamedQuery(name = "Sprint.findByIdSprint", query = "SELECT s FROM Sprint s WHERE s.idSprint = :idSprint")
+    , @NamedQuery(name = "Sprint.findByNombreSprint", query = "SELECT s FROM Sprint s WHERE s.nombreSprint = :nombreSprint")
+    , @NamedQuery(name = "Sprint.findByDescripcion", query = "SELECT s FROM Sprint s WHERE s.descripcion = :descripcion")
+    , @NamedQuery(name = "Sprint.findByIdHistory", query = "SELECT s FROM Sprint s WHERE s.idHistory = :idHistory")
+    , @NamedQuery(name = "Sprint.findByFechaInicio", query = "SELECT s FROM Sprint s WHERE s.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Sprint.findByFechaFin", query = "SELECT s FROM Sprint s WHERE s.fechaFin = :fechaFin")
+    , @NamedQuery(name = "Sprint.findByIdEstado", query = "SELECT s FROM Sprint s WHERE s.idEstado = :idEstado")})
 public class Sprint implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,18 +59,18 @@ public class Sprint implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-    @Column(name = "fechia_fin")
+    @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
-    private Date fechiaFin;
+    private Date fechaFin;
     @Size(max = 30)
     @Column(name = "id_estado")
     private String idEstado;
-    @JoinColumn(name = "estados_id_estados", referencedColumnName = "id_estado")
-    @ManyToOne(optional = false)
-    private Estado estadosIdEstados;
     @JoinColumn(name = "a_usr_histo_id_history", referencedColumnName = "id_history")
     @ManyToOne(optional = false)
     private UsrHisto aUsrHistoIdHistory;
+    @JoinColumn(name = "estados_id_estados", referencedColumnName = "id_estado")
+    @ManyToOne(optional = false)
+    private Estado estadosIdEstados;
 
     public Sprint() {
     }
@@ -122,12 +124,12 @@ public class Sprint implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechiaFin() {
-        return fechiaFin;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setFechiaFin(Date fechiaFin) {
-        this.fechiaFin = fechiaFin;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
     public String getIdEstado() {
@@ -138,20 +140,20 @@ public class Sprint implements Serializable {
         this.idEstado = idEstado;
     }
 
-    public Estado getEstadosIdEstados() {
-        return estadosIdEstados;
-    }
-
-    public void setEstadosIdEstados(Estado estadosIdEstados) {
-        this.estadosIdEstados = estadosIdEstados;
-    }
-
     public UsrHisto getAUsrHistoIdHistory() {
         return aUsrHistoIdHistory;
     }
 
     public void setAUsrHistoIdHistory(UsrHisto aUsrHistoIdHistory) {
         this.aUsrHistoIdHistory = aUsrHistoIdHistory;
+    }
+
+    public Estado getEstadosIdEstados() {
+        return estadosIdEstados;
+    }
+
+    public void setEstadosIdEstados(Estado estadosIdEstados) {
+        this.estadosIdEstados = estadosIdEstados;
     }
 
     @Override

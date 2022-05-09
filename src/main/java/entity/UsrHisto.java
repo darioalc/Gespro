@@ -20,19 +20,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_usr_histo")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UsrHisto.findAll", query = "SELECT u FROM UsrHisto u"),
-    @NamedQuery(name = "UsrHisto.findByIdHistory", query = "SELECT u FROM UsrHisto u WHERE u.idHistory = :idHistory"),
-    @NamedQuery(name = "UsrHisto.findByNombreHistory", query = "SELECT u FROM UsrHisto u WHERE u.nombreHistory = :nombreHistory"),
-    @NamedQuery(name = "UsrHisto.findByIdBackloog", query = "SELECT u FROM UsrHisto u WHERE u.idBackloog = :idBackloog"),
-    @NamedQuery(name = "UsrHisto.findByIdUsuario", query = "SELECT u FROM UsrHisto u WHERE u.idUsuario = :idUsuario")})
+    @NamedQuery(name = "UsrHisto.findAll", query = "SELECT u FROM UsrHisto u")
+    , @NamedQuery(name = "UsrHisto.findByIdHistory", query = "SELECT u FROM UsrHisto u WHERE u.idHistory = :idHistory")
+    , @NamedQuery(name = "UsrHisto.findByNombreHistory", query = "SELECT u FROM UsrHisto u WHERE u.nombreHistory = :nombreHistory")
+    , @NamedQuery(name = "UsrHisto.findByIdBackloog", query = "SELECT u FROM UsrHisto u WHERE u.idBackloog = :idBackloog")
+    , @NamedQuery(name = "UsrHisto.findByIdUsuario", query = "SELECT u FROM UsrHisto u WHERE u.idUsuario = :idUsuario")})
 public class UsrHisto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -113,6 +116,7 @@ public class UsrHisto implements Serializable {
         this.aBackloogIdBackloog = aBackloogIdBackloog;
     }
 
+    @XmlTransient
     public List<Sprint> getSprintList() {
         return sprintList;
     }
@@ -121,6 +125,7 @@ public class UsrHisto implements Serializable {
         this.sprintList = sprintList;
     }
 
+    @XmlTransient
     public List<Kanban> getKanbanList() {
         return kanbanList;
     }

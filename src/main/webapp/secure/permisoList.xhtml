@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,17 +12,17 @@
       xmlns:p="http://primefaces.org/ui"
       >
     <h:head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Permisos</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    </h:head>
 
+    </h:head>
     <h:body>
         <ui:composition template="/WEB-INF/template/template.xhtml">
             <ui:define  name="body" >
-                <h:form>
-                    <h4>Permisos</h4>
+                <h:form id="from1">
+                    <h3>Permisos</h3>
                     <p:separator style="color: #ffffff"/>
                     <p class="text-primary">Lista de Permisos</p>
                     <p:dataTable value="#{permisoView.permisoes}" var="permiso"
@@ -30,87 +35,83 @@
                         <p:column headerText="Accion">
                             <div align="center" >
                                 <p:commandButton class="btn btn-default"  
-                                                 onclick="$('#myModal').modal('show');" 
+                                                 oncomplete="$('#myModal').modal('show');" 
                                                  immediate="true"
-                                                 icon="ui-icon-zoomin" 
-                                                 title="Ver detalle"  >
-                                </p:commandButton>
-                                <p:commandButton class="btn btn-default"  
-                                                 onclick="$('#myModal').modal('show');" 
-                                                 immediate="true"
+                                                 action="#{permisoView.edit()}"
                                                  icon="ui-icon-pencil" 
                                                  title="Editar"  >
+                                    <f:setPropertyActionListener value="#{permiso}" target="#{permisoView.permiso}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                                <p:commandButton class="btn btn-default"  
+                                                 action="#{permisoView.delete()}"
+                                                 icon="ui-icon-trash" 
+                                                 title="Eliminar"  >
+                                    <f:setPropertyActionListener value="#{permiso}" target="#{permisoView.permiso}" ></f:setPropertyActionListener >
                                 </p:commandButton>
                             </div>
                         </p:column>
-                        <p:column headerText="Rol">
+                        <p:column headerText="# ">
                             <h:outputText value="#{permiso.idPermiso}"/>
                         </p:column>
-                        <p:column headerText="Descripción">
-                            <h:outputText value="#{permiso.tipoPermiso}"/>
+                        <p:column headerText="Permiso">
+                            <h:outputText value="#{permiso.tipoPermiso==1? 'Carga' : permiso.tipoPermiso==2 ? 'Modificacion' : 'Eliminacion'}"/>
                         </p:column>
-
                         <p:column headerText="Modulo">
                             <h:outputText value="#{permiso.AModuloIdModulo.nombreModulo}"/>
                         </p:column>
                     </p:dataTable>
                     <br></br>
                     <p:commandButton class="btn btn-primary"   
-                                     onclick="$('#myModal').modal('show');" 
+                                     action="#{permisoView.clear()}"
+                                     oncomplete="$('#myModal').modal('show');" 
                                      immediate="true"
-                                     value="Agregar permisos">
+                                     value="Agregar permiso">
                     </p:commandButton>
-                </h:form>
-
-                <div id="myModal" class="modal fade" permisose="dialog" >
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"></button>
-                                <h4 class="modal-title">Registro de permisos</h4>
-                            </div>
-                            <div class="modal-body">
-                                <h:form>
-                                    <h5  value="Datos Generales">Datos Generales</h5>
-                                    <p:separator/>
-                                    <fieldset style="background: #ffffff" >
-                                        <br></br>
+</h:form>
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog" >
+                        <div class="modal-dialog">
+                            <h:form id="from2">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"></button>
+                                        <h4 class="modal-title">Registro de permisos</h4>
+                                    </div>
+                                    <div class="modal-body">
                                         <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
-                                            <p:outputLabel  value="Nombre : " />
-                                            <p:inputText id="permisos"  disabled="true"
-                                                         value="Permisos Completos "  />
-                                             <p:outputLabel  value="Modulo : " />
-                                            <h:selectOneMenu styleClass="form-control"  id="console" style="width:180px;margin-top:  30px">
-                                                <f:selectItem itemLabel="--Seleccionar--" itemValue="#{permisoView.moduloSelected}" />
-                                                <f:selectItems itemLabel="#{modulo.nombreModulo}" var="modulo" value="#{permisoView.modulos}"/>
+                                            <p:outputLabel  value="Tipo de permiso : " />
+                                            <h:selectOneMenu styleClass="form-control"  id="console1"  value="#{permisoView.permiso.tipoPermiso}">
+                                                <f:selectItem itemLabel="--Seleccionar--" itemValue=""/>
+                                                <f:selectItem itemLabel="Carga" itemValue="1" />
+                                                <f:selectItem itemLabel="Modificacion" itemValue="2" />
+                                                <f:selectItem itemLabel="Eliminacion" itemValue="3" />
                                             </h:selectOneMenu>
+                                            <p:outputLabel  value="Modulo : " />
+                                            <h:selectOneMenu styleClass="form-control"  id="consoleeee" value="#{permisoView.moduloSelected}" >
+                                                <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
+                                                <f:selectItems itemLabel="#{modulo.nombreModulo}" itemValue="#{modulo.idModulo}" var="modulo" value="#{permisoView.modulos}"/>
+                                            </h:selectOneMenu>
+                                            <p:outputLabel  value="Observacion : " />
+                                            <p:inputText value="#{permisoView.permiso.observacion}"></p:inputText>
                                             <br></br>
                                         </p:panelGrid>
-                                        <br></br><br></br>
-                                        <br></br>
-                                    </fieldset>
-                                </h:form>
 
-                            </div>
-                            <div class="modal-footer">
-                                <div align="center" >
-                                    <h:panelGrid columns="2" >
-                                        <div align="center">
-                                            <h:panelGrid columns="2" >
-                                                <p:commandButton  class="btn btn-primary"  value="Guardar" action="#{permisoView.save()}" >
-                                                </p:commandButton>
-                                            </h:panelGrid>
+                                        <div  class="modal-footer">
+                                            <div align="center" >
+                                                <h:panelGrid   columns="2" >
+                                                    <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                                      action="#{permisoView.save()}"  >
+                                                    </h:commandButton>
+                                                </h:panelGrid>
+                                            </div>
                                         </div>
-                                    </h:panelGrid>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </h:form>
                         </div>
-
                     </div>
-                </div>
-
             </ui:define>
         </ui:composition>
     </h:body>

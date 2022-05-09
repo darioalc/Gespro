@@ -20,21 +20,23 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_kanban")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Kanban.findAll", query = "SELECT k FROM Kanban k"),
-    @NamedQuery(name = "Kanban.findByIdKanban", query = "SELECT k FROM Kanban k WHERE k.idKanban = :idKanban"),
-    @NamedQuery(name = "Kanban.findByIdEstadoKan", query = "SELECT k FROM Kanban k WHERE k.idEstadoKan = :idEstadoKan"),
-    @NamedQuery(name = "Kanban.findByIdUsHis", query = "SELECT k FROM Kanban k WHERE k.idUsHis = :idUsHis"),
-    @NamedQuery(name = "Kanban.findByFechaEstado", query = "SELECT k FROM Kanban k WHERE k.fechaEstado = :fechaEstado"),
-    @NamedQuery(name = "Kanban.findByComentario", query = "SELECT k FROM Kanban k WHERE k.comentario = :comentario"),
-    @NamedQuery(name = "Kanban.findByATipoJanbanDiTipo", query = "SELECT k FROM Kanban k WHERE k.aTipoJanbanDiTipo = :aTipoJanbanDiTipo")})
+    @NamedQuery(name = "Kanban.findAll", query = "SELECT k FROM Kanban k")
+    , @NamedQuery(name = "Kanban.findByIdKanban", query = "SELECT k FROM Kanban k WHERE k.idKanban = :idKanban")
+    , @NamedQuery(name = "Kanban.findByIdEstadoKan", query = "SELECT k FROM Kanban k WHERE k.idEstadoKan = :idEstadoKan")
+    , @NamedQuery(name = "Kanban.findByIdUsHis", query = "SELECT k FROM Kanban k WHERE k.idUsHis = :idUsHis")
+    , @NamedQuery(name = "Kanban.findByFechaEstado", query = "SELECT k FROM Kanban k WHERE k.fechaEstado = :fechaEstado")
+    , @NamedQuery(name = "Kanban.findByComentario", query = "SELECT k FROM Kanban k WHERE k.comentario = :comentario")
+    , @NamedQuery(name = "Kanban.findByATipoJanbanDiTipo", query = "SELECT k FROM Kanban k WHERE k.aTipoJanbanDiTipo = :aTipoJanbanDiTipo")})
 public class Kanban implements Serializable {
 
     private static final long serialVersionUID = 1L;

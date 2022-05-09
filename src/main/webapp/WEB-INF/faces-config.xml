@@ -60,5 +60,29 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>rolUsuarioList</from-outcome>
+            <to-view-id>/secure/rolUsuarioList.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>proyecto</from-outcome>
+            <to-view-id>/secure/proyecto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>proyectoNew</from-outcome>
+            <to-view-id>/secure/proyectoNew.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
     
 </faces-config>

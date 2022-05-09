@@ -21,7 +21,7 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/WEB-INF/template/template.xhtml">
             <ui:define  name="body" >
-                <h:form>
+               <h:form id="from1">
                     <h3>Usuarios</h3>
                     <p:separator style="color: #ffffff"/>
                     <p class="text-primary">Lista de Usuarios</p>
@@ -37,20 +37,20 @@ and open the template in the editor.
                             <div align="center" >
 
                                 <p:commandButton class="btn btn-default"  
-                                                 onclick="$('#myModal').modal('show');" 
+                                                 oncomplete="$('#myModal').modal('show');" 
                                                  immediate="true"
-                                                 icon="ui-icon-zoomin" 
+                                                 action="#{userView.ver()}"
+                                                 icon="ui-icon-zoomin"   
                                                  title="Ver detalle"  >
+                                    <f:setPropertyActionListener value="#{user}" target="#{userView.usuario}" ></f:setPropertyActionListener >
                                 </p:commandButton>
                                 <p:commandButton class="btn btn-default"  
-                                                 onclick="$('#myModal').modal('show');" 
+                                                 oncomplete="$('#myModal').modal('show');" 
                                                  immediate="true"
+                                                 action="#{userView.editar()}"
                                                  icon="ui-icon-pencil" 
                                                  title="Editar"  >
-                                </p:commandButton>
-                                <p:commandButton class="btn btn-default" 
-                                                 icon=" ui-icon-clipboard" 
-                                                 title="Ver proyectos asignados"  >
+                                    <f:setPropertyActionListener value="#{user}" target="#{userView.usuario}" ></f:setPropertyActionListener >
                                 </p:commandButton>
                             </div>
                         </p:column>
@@ -67,32 +67,13 @@ and open the template in the editor.
                             </div>
                         </p:column>
 
-                        <p:column headerText="Fecha Alta">
-                            <div align="center" >
-                                <h:outputText value="#{user.fechaAlta}" />
-                            </div>
-                        </p:column>
 
-
-                        <p:column headerText="Estado">
-                            <div align="center" >
-                                <p:commandButton 
-                                    rendered="#{user.estado}" 
-                                    class="btn btn-success"  
-                                    value="Activo" >
-                                </p:commandButton>
-                                <p:commandButton rendered="#{!user.estado}" 
-                                                 class="btn btn-danger"  
-                                                 value="Inactivo"  >
-                                </p:commandButton>
-                            </div>
-
-                        </p:column>
 
 
                     </p:dataTable>
                     <br></br>
                     <p:commandButton class="btn btn-primary"   
+                                     action="#{userView.clear()}"
                                      onclick="$('#myModal').modal('show');" 
                                      immediate="true"
                                      value="Agregar usuario">
@@ -111,64 +92,58 @@ and open the template in the editor.
                                 <h4 class="modal-title">Registro de usuario</h4>
                             </div>
                             <div class="modal-body">
-                                <h:form>
-                                    <h5  value="Datos Personales">Datos Personales</h5>
+                                <h:form id="from2">
+                                    <h4  value="Datos Personales">Datos Personales</h4>
                                     <p:separator/>
                                     <fieldset style="background: #ffffff" >
                                         <br></br>
 
                                         <p:panelGrid columns="4"  styleClass="ui-noborder ui-panelGrid-black">
-                                            <p:outputLabel value="Nombre : " />
-                                            <p:inputText id="nombre"
+                                            <p:outputLabel value="Nombre: " />
+                                            <p:inputText id="nombre"  value="#{userView.usuario.nombre}"
                                                          />
 
-                                            <p:outputLabel  value="Apellido :" />
-                                            <p:inputText id="apellido" 
+                                            <p:outputLabel style="margin-left:  100px" value="Apellido:" />
+                                            <p:inputText id="apellido" value="#{userView.usuario.apellido}"
+                                                         /> 
+
+                                            <p:outputLabel value="Correo: " />
+                                            <p:inputText id="Correo"  value="#{userView.usuario.email}"
+                                                         />
+
+                                            <p:outputLabel style="margin-left:  100px" value="Telefono:" />
+                                            <p:inputText id="Telefono" value="#{userView.usuario.telefono}"
                                                          /> 
                                         </p:panelGrid>
                                         <br></br>
                                     </fieldset>
-                                    <br></br>
-                                    <h5 value="Datos de Usuario">Datos de Usuario</h5>
+
+                                    <h4 value="Datos de Usuario">Datos de Usuario</h4>
                                     <p:separator/>
                                     <fieldset style="background: #ffffff" >
                                         <br></br>
-                                        <p:panelGrid columns="4" styleClass="ui-noborder ui-panelGrid-black">
+                                        <p:panelGrid columns="6" styleClass="ui-noborder ui-panelGrid-black">
                                             <p:outputLabel value="Usuario: " />
-                                            <p:inputText id="usuario" 
+                                            <p:inputText id="usuarios" value="#{userView.usuario.usuario}"
                                                          />
 
-                                            <p:outputLabel value="Contraseña:" />
-                                            <p:password id="contraseña" 
+                                            <p:outputLabel   style="margin-left:  50px" value="Contraseña:" />
+                                            <p:password    id="contraseña"  value="#{userView.usuario.pass}"
                                                         /> 
-
-                                            <p:outputLabel value="Correo:" />
-                                            <p:password id="correo" 
-                                                        /> 
-
-
-                                            <p:outputLabel  for="console" value="Rol :" />
-                                            <h:selectOneMenu styleClass="form-control"  id="console" style="width:180px">
-                                                <f:selectItem itemLabel="--Seleccionar--" itemValue="" />
-                                                <f:selectItem itemLabel="Scrum Master" itemValue="Scrum Master" />
-                                                <f:selectItem itemLabel="Product Owner" itemValue="Product Owner" />
-                                                <f:selectItem itemLabel="Developer" itemValue="Developer" />
-                                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                                            </h:selectOneMenu>
                                         </p:panelGrid>
-                                        <br></br><br></br>
                                     </fieldset>
-                                </h:form>
+                                    <br></br>
 
-                            </div>
-                            <div class="modal-footer">
-                                <div align="center" >
-                                    <h:panelGrid columns="2" >
-                                        <h:commandButton  class="btn btn-primary" value="Guardar"  >
-                                        </h:commandButton>
-                                        <button type="button" style="margin-left: 1px"  class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                                    </h:panelGrid>
-                                </div>
+                                    <div  class="modal-footer">
+                                        <div align="center" >
+                                            <h:panelGrid rendered="#{!userView.verB}" columns="2" >
+                                                <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                                  action="#{userView.save()}"  >
+                                                </h:commandButton>
+                                            </h:panelGrid>
+                                        </div>
+                                    </div>
+                                </h:form>
                             </div>
                         </div>
 

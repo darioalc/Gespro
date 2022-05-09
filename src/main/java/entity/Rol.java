@@ -20,18 +20,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_rol")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol"),
-    @NamedQuery(name = "Rol.findByNombreRol", query = "SELECT r FROM Rol r WHERE r.nombreRol = :nombreRol"),
-    @NamedQuery(name = "Rol.findByIdPermiso", query = "SELECT r FROM Rol r WHERE r.idPermiso = :idPermiso")})
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")
+    , @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol")
+    , @NamedQuery(name = "Rol.findByNombreRol", query = "SELECT r FROM Rol r WHERE r.nombreRol = :nombreRol")
+    , @NamedQuery(name = "Rol.findByIdPermiso", query = "SELECT r FROM Rol r WHERE r.idPermiso = :idPermiso")})
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,7 +53,7 @@ public class Rol implements Serializable {
     @JoinColumn(name = "a_permiso_id_permiso", referencedColumnName = "id_permiso")
     @ManyToOne(optional = false)
     private Permiso aPermisoIdPermiso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aRolIdRol")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
     private List<RolUsuario> rolUsuarioList;
 
     public Rol() {
@@ -97,6 +100,7 @@ public class Rol implements Serializable {
         this.aPermisoIdPermiso = aPermisoIdPermiso;
     }
 
+    @XmlTransient
     public List<RolUsuario> getRolUsuarioList() {
         return rolUsuarioList;
     }

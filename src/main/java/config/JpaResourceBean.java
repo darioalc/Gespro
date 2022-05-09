@@ -9,6 +9,7 @@ import java.sql.Connection;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 /**
@@ -20,7 +21,7 @@ public class JpaResourceBean {
     private static EntityManagerFactory emf;
 
     public static Connection getConnection() {
-        String datasource = "java:/is2";
+        String datasource = "gespro";
         try {
             Context context = new InitialContext();
             
@@ -29,6 +30,17 @@ public class JpaResourceBean {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public static synchronized EntityManagerFactory getEMF(){
+        if(emf==null){
+            try {
+                emf=Persistence.createEntityManagerFactory("gespro");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return emf;
     }
     
     public static void close(Connection connection){

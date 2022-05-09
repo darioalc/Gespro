@@ -18,17 +18,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_estado")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
-    @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
-    @NamedQuery(name = "Estado.findByDescripcion", query = "SELECT e FROM Estado e WHERE e.descripcion = :descripcion")})
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e")
+    , @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado")
+    , @NamedQuery(name = "Estado.findByDescripcion", query = "SELECT e FROM Estado e WHERE e.descripcion = :descripcion")})
 public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +71,7 @@ public class Estado implements Serializable {
         this.descripcion = descripcion;
     }
 
+    @XmlTransient
     public List<Proyecto> getProyectoList() {
         return proyectoList;
     }
@@ -76,6 +80,7 @@ public class Estado implements Serializable {
         this.proyectoList = proyectoList;
     }
 
+    @XmlTransient
     public List<Sprint> getSprintList() {
         return sprintList;
     }

@@ -20,21 +20,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_backloog")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Backloog.findAll", query = "SELECT b FROM Backloog b"),
-    @NamedQuery(name = "Backloog.findByIdBackloog", query = "SELECT b FROM Backloog b WHERE b.idBackloog = :idBackloog"),
-    @NamedQuery(name = "Backloog.findByIdProyecto", query = "SELECT b FROM Backloog b WHERE b.idProyecto = :idProyecto"),
-    @NamedQuery(name = "Backloog.findByEnunciado", query = "SELECT b FROM Backloog b WHERE b.enunciado = :enunciado"),
-    @NamedQuery(name = "Backloog.findByEsfuerzo", query = "SELECT b FROM Backloog b WHERE b.esfuerzo = :esfuerzo"),
-    @NamedQuery(name = "Backloog.findByPrioridad", query = "SELECT b FROM Backloog b WHERE b.prioridad = :prioridad"),
-    @NamedQuery(name = "Backloog.findByIdHistory", query = "SELECT b FROM Backloog b WHERE b.idHistory = :idHistory")})
+    @NamedQuery(name = "Backloog.findAll", query = "SELECT b FROM Backloog b")
+    , @NamedQuery(name = "Backloog.findByIdBackloog", query = "SELECT b FROM Backloog b WHERE b.idBackloog = :idBackloog")
+    , @NamedQuery(name = "Backloog.findByIdProyecto", query = "SELECT b FROM Backloog b WHERE b.idProyecto = :idProyecto")
+    , @NamedQuery(name = "Backloog.findByEnunciado", query = "SELECT b FROM Backloog b WHERE b.enunciado = :enunciado")
+    , @NamedQuery(name = "Backloog.findByEsfuerzo", query = "SELECT b FROM Backloog b WHERE b.esfuerzo = :esfuerzo")
+    , @NamedQuery(name = "Backloog.findByPrioridad", query = "SELECT b FROM Backloog b WHERE b.prioridad = :prioridad")
+    , @NamedQuery(name = "Backloog.findByIdHistory", query = "SELECT b FROM Backloog b WHERE b.idHistory = :idHistory")})
 public class Backloog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -124,6 +127,7 @@ public class Backloog implements Serializable {
         this.idHistory = idHistory;
     }
 
+    @XmlTransient
     public List<UsrHisto> getUsrHistoList() {
         return usrHistoList;
     }

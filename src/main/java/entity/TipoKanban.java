@@ -18,17 +18,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author DarioA
  */
 @Entity
 @Table(name = "a_tipo_kanban")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoKanban.findAll", query = "SELECT t FROM TipoKanban t"),
-    @NamedQuery(name = "TipoKanban.findByIdTipo", query = "SELECT t FROM TipoKanban t WHERE t.idTipo = :idTipo"),
-    @NamedQuery(name = "TipoKanban.findByNombreKanban", query = "SELECT t FROM TipoKanban t WHERE t.nombreKanban = :nombreKanban")})
+    @NamedQuery(name = "TipoKanban.findAll", query = "SELECT t FROM TipoKanban t")
+    , @NamedQuery(name = "TipoKanban.findByIdTipo", query = "SELECT t FROM TipoKanban t WHERE t.idTipo = :idTipo")
+    , @NamedQuery(name = "TipoKanban.findByNombreKanban", query = "SELECT t FROM TipoKanban t WHERE t.nombreKanban = :nombreKanban")})
 public class TipoKanban implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +69,7 @@ public class TipoKanban implements Serializable {
         this.nombreKanban = nombreKanban;
     }
 
+    @XmlTransient
     public List<Kanban> getKanbanList() {
         return kanbanList;
     }
