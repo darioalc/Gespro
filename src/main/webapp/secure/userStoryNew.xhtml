@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Asignacion de backlog</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form id="from2">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+                    <fieldset style="background-color:  #ffffff ">
+                        <div align="center" >
+                            <h5 style="background-color:  #e6e7e8;color: #0073b7">Datos del Proyecto</h5>
+                        </div>
+
+                        <p:panelGrid columns="3"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <h:panelGroup>
+
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Nombre proyecto : " />
+                                    <h:inputText disabled="true" value="#{userStoryView.backloog.AProyectoIdProyecto.nombreProyecto}" />
+                                </p:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Descripcion proyecto : " />
+                                    <h:inputTextarea disabled="true"  value="#{userStoryView.backloog.AProyectoIdProyecto.descripcion}" />
+                                </p:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Estado : " />
+                                    <h:inputText disabled="true"  value="#{userStoryView.backloog.AProyectoIdProyecto.estadosIdEstados.descripcion}" />
+                                </p:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Fecha inicio : " />
+                                    <h:inputText disabled="true"  value="#{userStoryView.backloog.AProyectoIdProyecto.fechaInicio}">  
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                                    </h:inputText>
+                                </p:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Fecha fin : " />
+                                    <h:inputText disabled="true"   value="#{userStoryView.backloog.AProyectoIdProyecto.fechaFin}">  
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                                    </h:inputText>
+                                </p:panelGrid>
+                            </h:panelGroup>
+                        </p:panelGrid>
+                        <br></br>
+                        <div align="center" >
+                            <h5 style="background-color:  #e6e7e8;color: #0073b7">Datos de Backlog</h5>
+                        </div>
+                        <br></br>
+                        <p:panelGrid columns="3"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" >
+                                    <p:outputLabel  value="Enunciado : " />
+                                    <h:inputTextarea disabled="true"  value="#{userStoryView.backloog.enunciado}" />
+                                </p:panelGrid>
+                            </h:panelGroup>
+
+                        </p:panelGrid>
+
+                        <div align="center" >
+                            <h5 style="background-color:  #e6e7e8;color: #0073b7">Historias de usuarios</h5>
+                        </div>
+                        <br></br>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel  value="Nombre de historia *: " />
+                            <p:inputTextarea  value="#{userStoryView.histo.nombreHistory}" />
+                            <p:outputLabel  value="Esfuerzo *: " />
+                            <p:inputNumber  value="#{userStoryView.histo.esfuerzo}" />
+                            <p:outputLabel  value="Prioridad *: " />
+                            <p:inputNumber  value="#{userStoryView.histo.prioridad}" />
+                            <p:outputLabel  value="Asignar a *: " />
+                            <h:selectOneMenu styleClass="form-control"  value="#{userStoryView.histo.idUsuario}" >
+                                <f:selectItems itemLabel="#{rol.idUsuario.nombre}"
+                                               itemValue="#{rol.idUsuario.idUsuario}" var="rol"
+                                               value="#{userStoryView.rolUsuarios}"/>
+                            </h:selectOneMenu>
+                        </p:panelGrid>  
+                        <div align="center" >
+                            <p:commandButton action="#{userStoryView.addstory()}"
+                                             value="Agregar"  >
+                            </p:commandButton>
+                        </div>
+                        <br></br>
+                        <div align="center" >
+                            <h5 style="background-color:  #e6e7e8;color: #0073b7">Lista de User Stories</h5>
+                        </div>
+                        <p:dataTable id="eventsDT2" var="story" value="#{userStoryView.histoList}"  >
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{story.nombreHistory}" />
+                            </p:column>
+                            <p:column headerText="Esfuerzo">
+                                <h:outputText value="#{story.esfuerzo}" />
+                            </p:column>
+                            <p:column headerText="Prioridad">
+                                <h:outputText value="#{story.prioridad}" />
+                            </p:column>
+                        </p:dataTable>
+                    </fieldset>
+                    <div  class="modal-footer">
+                        <div align="center" >
+                            <p:panelGrid   columns="2"  styleClass="ui-noborder ui-panelGrid-black">
+                                <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                  action="#{userStoryView.save()}"  >
+                                </h:commandButton>
+                                <h:commandButton  class="btn btn-primary" value="Cancelar"
+                                                  action="userStory"  >
+                                </h:commandButton>
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
