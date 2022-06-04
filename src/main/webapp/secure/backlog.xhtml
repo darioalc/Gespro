@@ -12,20 +12,15 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       >
     <h:head>
-        <title>Permisos</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+        <title>Asignacion de Baclog</title>
     </h:head>
     <h:body>
         <ui:composition template="/WEB-INF/template/template.xhtml">
             <ui:define  name="body" >
                 <h:form id="from1">
-                    <h3>Permisos</h3>
                     <p:separator style="color: #ffffff"/>
-                    <p class="text-primary">Lista de Permisos</p>
-                    <p:dataTable value="#{backlogView.list}" var="backlog"
+                    <p class="text-primary">Lista de proyectos</p>
+                    <p:dataTable value="#{backlogView.listProyecto}" var="proyecto"
                                  rows="5" editable="true" 
                                  paginator="true"
                                  paginatorPosition="bottom"
@@ -34,67 +29,46 @@ and open the template in the editor.
                                  rowsPerPageTemplate="5,10,15">
                         <p:column headerText="Accion">
                             <div align="center" >
-                                <p:commandButton class="btn btn-default"  
-                                                 oncomplete="$('#myModal').modal('show');" 
-                                                 immediate="true"
-                                                 action="#{backlogView.edit()}"
+                                <p:commandButton action="#{backlogView.aggBacklog()}"
                                                  icon="ui-icon-pencil" 
-                                                 title="Editar"  >
-                                    <f:setPropertyActionListener value="#{backlog}" target="#{backlogView.backlog}" ></f:setPropertyActionListener >
+                                                 disabled="#{proyecto.estadosIdEstados.idEstado==3 or proyecto.estadosIdEstados.idEstado==4}"
+                                                 value="Agregar/Editar Backlog"
+                                                 title="Agregar Backlog"  >
+                                    <f:setPropertyActionListener value="#{proyecto}" target="#{backlogView.proyecto}" ></f:setPropertyActionListener >
                                 </p:commandButton>
-                                <p:commandButton class="btn btn-default"  
-                                                 action="#{backlogView.delete()}"
-                                                 icon="ui-icon-trash" 
-                                                 title="Eliminar"  >
-                                    <f:setPropertyActionListener value="#{backlog}" target="#{backlogView.backlog}" ></f:setPropertyActionListener >
-                                </p:commandButton>
+
                             </div>
                         </p:column>
-                        <p:column headerText="# ">
-                            <h:outputText value="#{backlog.idBackloog}"/>
+                        <p:column width="10%" headerText="Código">
+                            <div align="center" >
+                                <h:outputText value="#{proyecto.idProyecto}"/>
+                            </div>
                         </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{backlog.enunciado}"/>
+                        <p:column width="40%"  headerText="Descripción">
+                            <div align="center" >
+                                <h:outputText value="#{proyecto.descripcion}"/>
+                            </div>
                         </p:column>
-                        <p:column headerText="Prioridad">
-                            <h:outputText value="#{backlog.prioridad}"/>
+                        <p:column width="20%"  headerText="Estado">
+                             <div align="center" >
+                                <h:inputText disabled="true" rendered="#{proyecto.estadosIdEstados.idEstado==1}" 
+                                             style="background-color: #ffcc00; color: #ffffff;width: 50%" 
+                                              value="#{proyecto.estadosIdEstados.descripcion}"/>
+                                <h:inputText disabled="true" rendered="#{proyecto.estadosIdEstados.idEstado==2}" 
+                                             style="background-color: #00cc00; color: #ffffff;width: 50%" 
+                                              value="#{proyecto.estadosIdEstados.descripcion}"/>
+                                <h:inputText disabled="true" rendered="#{proyecto.estadosIdEstados.idEstado==4}" 
+                                             style="background-color: #00a7d0; color: #ffffff;width: 50%"
+                                              value="#{proyecto.estadosIdEstados.descripcion}"/>
+                                <h:inputText disabled="true" rendered="#{proyecto.estadosIdEstados.idEstado==3}" 
+                                             style="background-color: #ff3333; color: #ffffff;width: 50%" 
+                                              value="#{proyecto.estadosIdEstados.descripcion}"/> 
+                            </div>
                         </p:column>
                     </p:dataTable>
-                    <br></br>
-                    <p:commandButton class="btn btn-primary"   
-                                     action="#{backlogView.clear()}"
-                                     oncomplete="$('#myModal').modal('show');" 
-                                     immediate="true"
-                                     value="Agregar backlog">
-                    </p:commandButton>
-</h:form>
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog" >
-                        <div class="modal-dialog">
-                            <h:form id="from2">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"></button>
-                                        <h4 class="modal-title">Registro de backlogs</h4>
-                                    </div>
-                                    <div class="modal-body">
+                    
+                </h:form>
 
-                                        <div  class="modal-footer">
-                                            <div align="center" >
-                                                <h:panelGrid   columns="2" >
-                                                    <h:commandButton  class="btn btn-primary" value="Guardar"
-                                                                      action="#{backlogView.save()}"  >
-                                                    </h:commandButton>
-                                                </h:panelGrid>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </h:form>
-                        </div>
-                    </div>
             </ui:define>
         </ui:composition>
     </h:body>

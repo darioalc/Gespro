@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Asignacion de backlog</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form id="from2">
+                     <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+                    
+                    <h:panelGroup>
+                        <h5 style="color: #0073b7">Datos del Proyecto</h5>
+                        <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                        <p:outputLabel  value="Nombre proyecto : " />
+                        <h:inputText disabled="true" value="#{backlogView.proyecto.nombreProyecto}" />
+
+                        <p:outputLabel  value="Descripcion proyecto : " />
+                        <h:inputTextarea disabled="true"  value="#{backlogView.proyecto.descripcion}" />
+                        <p:outputLabel  value="Estado : " />
+                        <h:inputText disabled="true"  value="#{backlogView.proyecto.estadosIdEstados.descripcion}" />
+                        <p:outputLabel  value="Fecha inicio : " />
+                        <h:inputText disabled="true"  value="#{backlogView.proyecto.fechaInicio}">  
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                        </h:inputText>
+
+                        <p:outputLabel  value="Fecha fin : " />
+                        <h:inputText disabled="true"  value="#{backlogView.proyecto.fechaFin}">  
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                        </h:inputText>
+                        <br></br>
+                    </p:panelGrid>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                      <h5 style="color: #0073b7">Datos del backlog</h5>
+                        <br></br>
+                    <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                        <p:outputLabel  value="Descripcion : " />
+                        <p:inputTextarea  value="#{backlogView.backloog.enunciado}" />
+                        <br></br>
+                    </p:panelGrid>
+                        </h:panelGroup>
+
+                    <div  class="modal-footer">
+                        <div align="center" >
+                            <h:panelGrid   columns="2" >
+                                <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                  action="#{backlogView.save()}"  >
+                                </h:commandButton>
+                                <h:commandButton  class="btn btn-primary" value="Cancelar"
+                                                  action="backlog"  >
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

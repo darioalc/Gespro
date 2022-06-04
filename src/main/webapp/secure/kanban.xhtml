@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Asignacion de backlog</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/WEB-INF/template/template.xhtml">
+            <ui:define  name="body" >
+                <h:form id="from2">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h:panelGroup>
+                        <h5 style="color: #0073b7">Datos del Sprint</h5>
+                        <p:panelGrid columns="4"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel  value="Nombre Sprint : " />
+                            <h:inputText disabled="true" value="#{sprintView.proyecto.nombreProyecto}" />
+                            <p:outputLabel  value="Descripcion Sprint : " />
+                            <h:inputTextarea disabled="true"  value="#{sprintView.proyecto.descripcion}" />
+                            <p:outputLabel  value="Estado : " />
+                            <h:inputText disabled="true"  value="#{sprintView.proyecto.estadosIdEstados.descripcion}" />
+                            <p:outputLabel  value="Fecha inicio : " />
+                            <h:inputText disabled="true"  value="#{sprintView.proyecto.fechaInicio}">  
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                            </h:inputText>
+                            <p:outputLabel  value="Fecha fin : " />
+                            <h:inputText disabled="true"  value="#{sprintView.proyecto.fechaFin}">  
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>  
+                            </h:inputText>
+                            <br></br>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h5 style="color: #0073b7">Datos del backlog</h5>
+                        <br></br>
+                        <p:panelGrid columns="2"  layout="grid" styleClass="ui-noborder ui-panelGrid-black">
+                            <p:outputLabel  value="Enunciado : " />
+                            <h:inputTextarea disabled="true" value="#{sprintView.backloog.enunciado}" />
+                            <br></br>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <h5 style="color: #0073b7">Tablero Kanban</h5>
+                    <h:panelGroup>
+                        <p:dataTable  var="story"
+                                      emptyMessage="No hay datos"
+                                      value="#{sprintView.histoList}"  >
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{story.nombreHistory}" />
+                            </p:column>
+                            <p:column headerText="Esfuerzo">
+                                <h:outputText value="#{story.esfuerzo}" />
+                            </p:column>
+                            <p:column headerText="Prioridad">
+                                <h:outputText value="#{story.prioridad}" />
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{sprintView.getUsuarioName(story.idUsuario)}" />
+                            </p:column>
+                            <p:column headerText="Opcion">
+                                <p:commandButton  value="Agregar" action="#{sprintView.addStory()}" >
+                                    <f:setPropertyActionListener value="#{story}" target="#{sprintView.selectedUsrHisto}" ></f:setPropertyActionListener >
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+
+                    <br></br>
+                    <h5 style="color: #0073b7">Historias de Sprint</h5>
+                    <br></br>
+                    <p:dataTable  var="story"
+                                  emptyMessage="No hay datos"
+                                  value="#{sprintView.histoListSeleccionadas}"  >
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{story.nombreHistory}" />
+                        </p:column>
+                        <p:column headerText="Esfuerzo">
+                            <h:outputText value="#{story.esfuerzo}" />
+                        </p:column>
+                        <p:column headerText="Prioridad">
+                            <h:outputText value="#{story.prioridad}" />
+                        </p:column>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{sprintView.getUsuarioName(story.idUsuario)}" />
+                        </p:column>
+                        <p:column headerText="Opcion">
+                            <p:commandButton  value="Eliminar" action="#{sprintView.removeStory()}" >
+                                <f:setPropertyActionListener value="#{story}" target="#{sprintView.selectedUsrHisto}" ></f:setPropertyActionListener >
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+
+
+
+                    <div  class="modal-footer">
+                        <div align="center" >
+                            <h:panelGrid   columns="2" >
+                                <h:commandButton  class="btn btn-primary" value="Guardar"
+                                                  action="#{sprintView.save()}"  >
+                                </h:commandButton>
+                                <h:commandButton  class="btn btn-primary" value="Cancelar"
+                                                  action="backlog"  >
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
